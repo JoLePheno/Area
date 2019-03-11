@@ -8,10 +8,10 @@ docker-compose build
 
 docker-compose up
 
+#server:
 
-#dev:
+Go server is running on localhost:3000
 
-Go server can't connect to mongodb for now. Run manualy server in /server use:
-    
-    go build
-    ./server
+#Web Clien:
+
+React client is running on https://localhost:8000
