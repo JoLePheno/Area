@@ -12,6 +12,9 @@ docker-compose up
 
 Go server is running on localhost:3000
 
-#Web Clien:
+#Web Client:
 
 React client is running on https://localhost:8000
+
+
+Refer to server/doc for further informations
