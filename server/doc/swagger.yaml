@@ -1,0 +1,618 @@
+openapi: "3.0.0"
+servers: []
+info:
+  description: "API for epitech AREA project"
+  version: "1.0.0"
+  title: Area API
+tags:
+  - name: "user"
+    description: "Operations about user"
+  - name: "service"
+    description: "Operations about service"
+  - name: "area"
+    description: "Operations about area"
+paths:
+  /users:
+    post:
+      tags:
+        - "user"
+      summary: "Create user"
+      operationId: "createUser"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: julien.delane@epitech.eu
+                password:
+                  type: string
+                  example: password
+                services:
+                  type: array
+                  items:
+                    type: string
+                    example: "emptyArray"
+      responses:
+        '201':
+          description: "User created"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: "Invalid input, object invalid"
+        '409':
+          description: "Email already used"
+    get:
+      tags:
+        - "user"
+      summary: Get users
+      operationId: "getUsers"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /google-authentication:
+    post:
+      tags:
+        - "user"
+      summary: "Create user via google account or connect the user if alreaydy exist"
+      operationId: "createUserGoogle"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: julien.delane@gmail.com
+                sub:
+                  type: string
+                  example: "107085977904914121234"
+                email_verified:
+                  type: boolean
+                  example: True
+                google_token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+      responses:
+        '200':
+          description: "Successful login"
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+        '401':
+          description: "User created but need email confirmation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '201':
+          description: "User created"
+          content:
+            application/json:
+              schema:
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+        '400':
+          description: "Invalid input, object invalid"
+  /facebook-authentication:
+    post:
+      tags:
+        - "user"
+      summary: "Create user via facebook account or connect the user if alreaydy exist"
+      operationId: "createUserFacebook"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: julien.delane@gmail.com
+                id:
+                  type: string
+                  example: "107085977904914121234"
+                email_verified:
+                  type: boolean
+                  example: True
+                facebook_token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+      responses:
+        '200':
+          description: "Successful login"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+        '401':
+          description: "User created"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '201':
+          description: "User created"
+          content:
+            application/json:
+              schema:
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+        '400':
+          description: "Invalid input, object invalid"
+  /users/login:
+    post:
+      tags:
+        - "user"
+      summary: "Logs user into the system"
+      operationId: "loginUser"
+      parameters:
+        - in: query
+          name: username
+          description: The user name for login
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: password
+          description: The password for login in clear text
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+        '400':
+          description: "Invalid username/password supplied"
+        '401':
+          description: "Email not confirmed"
+  /users/{id}:
+    get:
+      tags:
+        - "user"
+      summary: Get user by id
+      operationId: "getUserByIds"
+      parameters:
+        - in: path
+          name: id
+          description: Id of the user
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: "Invalid id supplied"
+        '404':
+          description: "User not found"
+    put:
+      tags:
+        - "user"
+      summary: Update user by id
+      operationId: "updateUser"
+      parameters:
+        - in: path
+          name: id
+          description: Id of the user
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: julien.delane@epitech.eu
+                password:
+                  type: string
+                  example: password
+                admin:
+                  type: boolean
+                  example: false
+                verified:
+                  type: boolean
+                  example: false
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: "Invalid id supplied"
+    delete:
+      tags:
+        - "user"
+      summary: delete user by id
+      operationId: "deleteUser"
+      parameters:
+        - in: path
+          name: id
+          description: Id of the user
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: "Successful operation"
+        '400':
+          description: "Invalid id supplied"
+        '404':
+          description: "User not found"
+  /confirm-email/{token}:
+    get:
+      tags:
+        - "user"
+      summary: Confirm user's email
+      operationId: "confirm user's email"
+      parameters:
+        - in: path
+          name: token
+          description: token of the user
+          required: true
+          schema:
+            type: string
+      responses:
+        '308':
+          description: "Redirect to login page"
+        '400':
+          description: "Invalid token supplied"
+  /services:
+    post:
+      tags:
+        - "service"
+      summary: "Create service"
+      operationId: "createService"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Spotify
+                user_id:
+                  type: string
+                  example: 15796217862479861
+                access_token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+                areas:
+                  type: array
+                  items:
+                    type: string
+                    example: "emptyArray"
+      responses:
+        '201':
+          description: "Service created"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          description: "Invalid input, object invalid"
+    get:
+      tags:
+        - "service"
+      summary: Get Services
+      operationId: "getServices"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+  /services/{id}:
+    get:
+      tags:
+        - "service"
+      summary: Get service by id
+      operationId: "getServiceByIds"
+      parameters:
+        - in: path
+          name: id
+          description: Id of the service
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          description: "Invalid id supplied"
+        '404':
+          description: "Service not found"
+    put:
+      tags:
+        - "service"
+      summary: Update service by id
+      operationId: "updateService"
+      parameters:
+        - in: path
+          name: id
+          description: Id of the service
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Spotify
+                user_id:
+                  type: string
+                  example: 15796217862479861
+                access_token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+                areas:
+                  type: array
+                  items:
+                    type: string
+                    example: "emptyArray"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          description: "Invalid id supplied"
+    delete:
+      tags:
+        - "service"
+      summary: delete user by service
+      operationId: "deleteService"
+      parameters:
+        - in: path
+          name: id
+          description: Id of the service
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: "Successful operation"
+        '400':
+          description: "Invalid id supplied"
+        '404':
+          description: "Service not found"
+  /areas:
+    post:
+      tags:
+        - "area"
+      summary: "Create area"
+      operationId: "createArea"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                schema:
+                  $ref: '#/components/schemas/Area'
+      responses:
+        '201':
+          description: "Area created"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+        '400':
+          description: "Invalid input, object invalid"
+    get:
+      tags:
+        - "area"
+      summary: Get Aareas
+      operationId: "getAreas"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Area'
+  /areas/{id}:
+    get:
+      tags:
+        - "area"
+      summary: Get area by id
+      operationId: "getAreaByIds"
+      parameters:
+        - in: path
+          name: id
+          description: Id of the area
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+        '400':
+          description: "Invalid id supplied"
+        '404':
+          description: "Area not found"
+    put:
+      tags:
+        - "area"
+      summary: Update service by id
+      operationId: "updateArea"
+      parameters:
+        - in: path
+          name: id
+          description: Id of the area
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Spotify
+                user_id:
+                  type: string
+                  example: 15796217862479861
+                access_token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+                areas:
+                  type: array
+                  items:
+                    type: string
+                    example: "emptyArray"
+      responses:
+        '200':
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Area'
+        '400':
+          description: "Invalid id supplied"
+    delete:
+      tags:
+        - "area"
+      summary: delete user by area
+      operationId: "deleteArea"
+      parameters:
+        - in: path
+          name: id
+          description: Id of the service
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: "Successful operation"
+        '400':
+          description: "Invalid id supplied"
+        '404':
+          description: "Area not found"
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5c2680ece83bfb2a4c978c9b
+        email:
+          type: string
+          example: julien.delane@epitech.eu
+        password:
+          type: string
+          example: password
+        admin:
+          type: boolean
+          example: false
+        verified:
+          type: boolean
+          example: false
+        services:
+          type: array
+          items:
+            type: string
+            example: 5c605a70e487646e6c17336d
+    Service:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5c2680ece83bfb2a4c978c9b
+        name:
+          type: string
+          example: Spotify
+        user_id:
+          type: string
+          example: 15796217862479861
+        access_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNGEyYjNiZTQ4NzY0N2RlMGFiMTAxZSJ9.inJ1AgLNOxBnv_lizbvdeKsrKszHGctrUsAUdyIZYys
+        areas:
+          type: array
+          items:
+            type: string
+            example: 5c605a70e487646e6c17336d
+    Area:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5c2680ece83bfb2a4c978c9b
+        name:
+          type: string
+          example: SpotifyPlaylist
+        params:
+          type: array
+          items:
+            type: string
+            example: parameter

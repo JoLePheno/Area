@@ -1,0 +1,21 @@
+version: '3'
+services:
+  client:
+    container_name: web_client
+    build: ClientWeb/area/
+    ports:
+    - "8000:8000"
+    environment:
+    - API_URL=http://localhost:8000/
+  server:
+    container_name: go_server
+    build: server/
+    ports:
+    - "3000:3000"
+    links:
+      - mongo
+  mongo:
+    image: 'mongo:latest'
+    container_name: 'mongo'
+    ports:
+    - '27017:27017'

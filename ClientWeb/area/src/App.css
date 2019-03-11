@@ -1,0 +1,295 @@
+.App {
+  height: 100vh;
+  display: flex;
+  color: white;
+}
+
+.App__Aside {
+  width: 50%;
+  background-color: #61DAFB;
+}
+
+.App__Form {
+  width: 50%;
+  background-color: #303C42;
+  padding: 25px 40px;
+  overflow: auto;
+}
+
+.ConnectO2 {
+  display: inline-block;
+}
+
+.admin {
+  display: flex;
+  justify-content: center;
+  margin-top: 1%;
+}
+
+.add-delete {
+  display: flex;
+  justify-content: center;
+  margin-top: 1%;
+}
+
+.edit {
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+}
+
+.O2img {
+  width: 50px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+
+LogoService {
+  width: 75px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+
+.LogoImage {
+  width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.PageSwitcher {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10%;
+}
+
+.PageSwitcher__Item {
+  background-color: #4C5D72;
+  color: #9DA6B1;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-size: .9em;
+  border: none;
+  outline: none;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.PageSwitcher__Item--Active {
+  background-color: #61DAFB;
+  color: white;
+}
+
+.PageSwitcher__Item:first-child {
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+.PageSwitcher__Item:last-child {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.FormCenter {
+  margin-bottom: 100px;
+}
+
+.FormTitle {
+  color: #707C8B;
+  font-weight: 300;
+  margin-bottom: 50px;
+}
+
+.FormTitle__Link {
+  color: #707C8B;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.7em;
+  margin: 0 10px;
+  padding-bottom: 5px;
+}
+
+.FormTitle__Link:first-child {
+  margin-left: 0;
+}
+
+.FormTitle__Link--Active {
+  color: white;
+  border-bottom: 1px solid #61DAFB;
+}
+
+.FormField {
+  margin-bottom: 40px;
+}
+
+.FormField__Label {
+  display: block;
+  text-transform: uppercase;
+  font-size: .9em;
+  color: white;
+}
+.FormField__Input {
+  width: 85%;
+  background-color: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  border-bottom: 1px solid #445366;
+  font-size: 1em;
+  font-weight: 300;
+  padding-bottom: 10px;
+  margin-top: 10px;
+}
+
+.FormField__Input::placeholder {
+  color: #616E7F;
+}
+
+.FormField__Button {
+  background-color: #61DAFB;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  padding: 15px 70px;
+  font-size: .8em;
+  font-weight: 500;
+}
+
+.FormField__Link {
+  color: #66707D;
+  text-decoration: none;
+  display: inline-block;
+  border-bottom: 1.5px solid #225E62;
+  padding-bottom: 5px;
+}
+
+.FormField__CheckboxLabel {
+  color: #646F7D;
+  font-size: .9em;
+}
+
+.FormField__Checkbox {
+  position: relative;
+  top: 1.5px;
+}
+
+.FormField__TermsLink {
+  color: white;
+  border-bottom: 1px solid #61DAFB;
+  text-decoration: none;
+  display: inline-block;
+  padding-bottom: 2px;
+  margin-left: 5px;
+}
+
+.facebook {
+  background: url("ressources/facebookLogo.png");
+  background-size: cover;
+}
+
+.lol {
+  background: url("ressources/lol.png");
+  background-size: cover;
+}
+
+.steam {
+  background: url("ressources/steam.png");
+  background-size: cover;
+}
+
+.meteo {
+  background: url("ressources/meteo.png");
+  background-size: cover;
+}
+
+.yammer {
+  background: url("ressources/yammer.jpg");
+  background-size: cover;
+}
+
+.reddit {
+  background: url("ressources/reddit.png");
+  background-size: cover;
+}
+
+.bpi {
+  background: url("ressources/bitcoin.png");
+  background-size: cover;
+}
+
+.outlook {
+  background: url("ressources/outlook.jpg");
+  background-size: cover;
+}
+
+.spotify  {
+  background: url("ressources/spotifyLogo.png");
+  background-size: cover;
+}
+
+.twitter {
+  background: url("ressources/twitterLogo.png");
+  background-size: cover;
+}
+
+.oneDrive {
+  background: url("ressources/onedriveLogo.png");
+  background-size: cover;
+}
+
+.continueService {
+  background-color: #0099FF;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 15px 70px;
+  font-size: .8em;
+  font-weight: 500;
+  margin-bottom: 2%;
+  maring-top: 2%;
+}
+
+.addService {
+  width: 320px;
+  height: 320px;
+  opacity: 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.text {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: #4A6EA8;
+}
+
+.number {
+  color: #fff;
+}
+
+.selectServiceLine {
+  text-align: center;
+  text-color: #3b5998;
+}
+
+.centerDiv {
+  background-color: red;
+  margin: auto;
+  display: inline-block;
+  alignment: center;
+}
+
+.goLeft {
+  margin-left: 2%;
+  margin-top: 2%
+}
